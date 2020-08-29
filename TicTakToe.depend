@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1598679916 source:/home/zhoueverwin/Documents/TicTakToe/main.cpp
+	<iostream>
+	<string>
+	<sstream>
+	<stdio.h>
+
