@@ -65,8 +65,7 @@ int main()
 
 // X plays first
 bool playerIsX = true;
-bool top_row,second_row,third_row,first_column,second_column,third_column,upward,downward;
-
+bool top_row=0,second_row=0,third_row=0,first_column=0,second_column=0,third_column=0,upward=0,downward=0,winFlag=0;
 
 
 
@@ -75,7 +74,7 @@ bool top_row,second_row,third_row,first_column,second_column,third_column,upward
 This is the loop for play
 ***************************************************/
 
-
+int playround=0;
 do {
     char mark = (playerIsX)? 'X':'O';
 
@@ -95,6 +94,7 @@ do {
 
   {
    board[(chosenSquare-1) / 3][(chosenSquare-1) % 3]  = mark;
+   playround++;
   }
    else if (chosenSquare > 9 || chosenSquare < 0)
    {
@@ -111,15 +111,15 @@ do {
 
   cout<< "current board state: "<<endl;
   showBoard(pFirstSquare);
-  bool top_row = (board[0][0] == board[0][1] && board[0][1]== board[0][2]);
-  bool second_row = (board[1][0] == board[1][1] && board[1][1]== board[1][2]);
-  bool third_row = (board[2][0] == board[2][1] && board[2][1]== board[2][2]);
-  bool first_column = (board[0][0] == board[1][0] && board[1][0] == board[2][0]);
-  bool second_column = (board[0][1] == board[1][1]&& board[1][1]== board[2][1]);
-  bool third_column = (board[0][2] == board[1][2] &&board[1][2]== board[2][2]);
-  bool upward = (board[2][0] == board[1][1] &&board[1][1]==board[0][2]);
-  bool downward = (board[0][0] == board[1][1] &&board[1][1] ==board[2][2]);
-  bool winFlag = (top_row||second_row||third_row||first_column||second_column||third_column||upward ||downward );
+  top_row  = (board[0][0] == board[0][1] && board[0][1]== board[0][2]);
+  second_row = (board[1][0] == board[1][1] && board[1][1]== board[1][2]);
+  third_row = (board[2][0] == board[2][1] && board[2][1]== board[2][2]);
+  first_column = (board[0][0] == board[1][0] && board[1][0] == board[2][0]);
+  second_column = (board[0][1] == board[1][1]&& board[1][1]== board[2][1]);
+  third_column = (board[0][2] == board[1][2] &&board[1][2]== board[2][2]);
+  upward = (board[2][0] == board[1][1] &&board[1][1]==board[0][2]);
+  downward = (board[0][0] == board[1][1] &&board[1][1] ==board[2][2]);
+   winFlag = (top_row||second_row||third_row||first_column||second_column||third_column||upward ||downward );
 
   if (winFlag)
     //jump out of the loop to terminate the play.
@@ -130,6 +130,10 @@ do {
     }
 
 
+ if(!winFlag && playround ==9)
+    break;
+
+
 }while(true);
 
 
@@ -138,31 +142,48 @@ do {
 when winner is decided, show the winning player and the winning place.
 ***************************************************/
 
-if (playerIsX){
+if (playerIsX && top_row){
+        cout<<"PlayerX wins on the top row"<<endl;}
 
-    if (top_row){cout<<"PlayerX wins on the top row"<<endl;}
-else if(second_row){cout<<"PlayerX wins on the second row"<<endl;}
-else if(third_row) {cout<<"PlayerX wins on the third row"<<endl;}
-else if(first_column) {cout<<"PlayerX wins on the first column"<<endl;}
-else if(second_column) {cout<<"PlayerX wins on the second column"<<endl;}
-else if(third_column) {cout<<"PlayerX wins on the third column"<<endl;}
-else if(upward) {cout<<"PlayerX wins on the upward diagonal"<<endl;}
-else if(downward) {cout<<"PlayerX wins on the downward diagonal"<<endl;}
+else if(playerIsX &&second_row){
+    cout<<"PlayerX wins on the second row"<<endl;}
+else if(playerIsX &&third_row)
+{cout<<"PlayerX wins on the third row"<<endl;}
+else if(playerIsX &&first_column)
+{cout<<"PlayerX wins on the first column"<<endl;}
+else if(playerIsX &&second_column)
+{cout<<"PlayerX wins on the second column"<<endl;}
+else if(playerIsX &&third_column)
+{cout<<"PlayerX wins on the third column"<<endl;}
+else if(playerIsX &&upward)
+{cout<<"PlayerX wins on the upward diagonal"<<endl;}
+else if(playerIsX &&downward)
+{cout<<"PlayerX wins on the downward diagonal"<<endl;}
 
+else if (!playerIsX && top_row)
+    {cout<<"PlayerO wins on the top row"<<endl;}
+else if(!playerIsX && second_row)
+{cout<<"PlayerO wins on the second row"<<endl;}
+else if(!playerIsX && third_row)
+{cout<<"PlayerO wins on the third row"<<endl;}
+else if(!playerIsX && first_column)
+{cout<<"PlayerO wins on the first column"<<endl;}
+else if(!playerIsX && second_column)
+{cout<<"PlayerO wins on the second column"<<endl;}
+else if(!playerIsX && third_column)
+{cout<<"PlayerO wins on the third column"<<endl;}
+else if(!playerIsX && upward)
+{cout<<"PlayerO wins on the upward diagonal"<<endl;}
+else if(!playerIsX && downward)
+{cout<<"PlayerO wins on the downward diagonal"<<endl;}
 
-
+if(playround == 9&& !winFlag){
+    cout<<" Draw. Nobody wins"<<endl;
 }
-else {
-    if (top_row){cout<<"PlayerO wins on the top row"<<endl;}
-else if(second_row){cout<<"PlayerO wins on the second row"<<endl;}
-else if(third_row) {cout<<"PlayerO wins on the third row"<<endl;}
-else if(first_column) {cout<<"PlayerO wins on the first column"<<endl;}
-else if(second_column) {cout<<"PlayerO wins on the second column"<<endl;}
-else if(third_column) {cout<<"PlayerO wins on the third column"<<endl;}
-else if(upward) {cout<<"PlayerO wins on the upward diagonal"<<endl;}
-else if(downward) {cout<<"PlayerO wins on the downward diagonal"<<endl;}
 
-}
+
+
+
 }
 
 
